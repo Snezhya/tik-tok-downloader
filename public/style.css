@@ -1,0 +1,9 @@
+body {
+  background-image: radial-gradient(circle at top, #3b1818 0%, #1a0f0f 100%);
+}
+button, a {
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+}
+button:hover, a:hover {
+  transform: scale(1.02);
+}

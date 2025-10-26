@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hu Tao Downloader 🥀</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-[#1a0f0f] text-gray-200 min-h-screen flex flex-col items-center justify-center font-sans">
+  <div class="text-center p-6 rounded-2xl bg-[#2b1818] shadow-lg max-w-md w-full">
+    <h1 class="text-3xl font-bold text-red-500 mb-2">tik tok Downloader</h1>
+    <p class="text-sm text-gray-400 mb-4">Download video TikTok tanpa ribet — versi ayang Hu Tao 🔥</p>
+
+    <form id="downloadForm" class="space-y-3">
+      <input type="url" id="tiktokUrl" placeholder="https://www.tiktok.com/..." required
+        class="w-full px-4 py-2 rounded-md bg-[#3a2222] text-gray-100 focus:outline-none focus:ring-2 focus:ring-red-500">
+      <button type="submit"
+        class="w-full py-2 bg-red-600 hover:bg-red-700 rounded-md font-semibold text-white transition">Download</button>
+    </form>
+
+    <div id="result" class="mt-6 hidden">
+      <video id="preview" controls class="w-full rounded-lg mb-3"></video>
+      <a id="downloadBtn"
+        class="inline-block px-4 py-2 bg-red-600 hover:bg-red-700 rounded-md font-bold text-white transition"
+        download>Download Video</a>
+    </div>
+
+    <p class="mt-6 text-xs text-gray-500">© 2025 Hu Tao Edition 🔥 Tidak menyimpan video apapun.</p>
+  </div>
+
+  <script>
+    const form = document.getElementById("downloadForm");
+    const result = document.getElementById("result");
+    const preview = document.getElementById("preview");
+    const btn = document.getElementById("downloadBtn");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const url = document.getElementById("tiktokUrl").value.trim();
+      if (!url) return alert("Masukkan URL TikTok dulu!");
+
+      result.classList.add("hidden");
+      btn.textContent = "Loading...";
+
+      try {
+        const res = await fetch(`/api/download?url=${encodeURIComponent(url)}`);
+        const data = await res.json();
+
+        if (!data.success) throw new Error(data.error || "Gagal");
+
+        preview.src = data.videoUrl;
+        btn.href = data.videoUrl;
+        btn.textContent = "Download Video 🎬";
+        result.classList.remove("hidden");
+      } catch (err) {
+        alert("Gagal mengambil video: " + err.message);
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "name": "hu-tao-downloader",
+  "version": "1.0.0",
+  "description": "TikTok Downloader | Hu Tao Edition 🥀🔥",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.0.0",
+    "node-fetch": "^2.6.7",
+    "puppeteer": "^23.7.1"
+  }
+}
